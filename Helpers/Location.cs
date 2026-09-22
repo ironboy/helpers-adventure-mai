@@ -25,14 +25,33 @@ abstract class Location : Interactive
         if (World.At(X + 1, Y) != null) lines.Add("Go east:East");
         if (World.At(X, Y + 1) != null) lines.Add("Go south:South");
         if (World.At(X - 1, Y) != null) lines.Add("Go west:West");
+
+        // Always show "Show inventory" at all locations
+        lines.Add("Show inventory:ShowInventory");
+
         return lines;
     }
 
     // These are the methods the exit lines above refer to
-    public void North() => Move(0, -1);
-    public void East() => Move(1, 0);
-    public void South() => Move(0, 1);
-    public void West() => Move(-1, 0);
+    public virtual void North() => Move(0, -1);
+    public virtual void East() => Move(1, 0);
+    public virtual void South() => Move(0, 1);
+    public virtual void West() => Move(-1, 0);
+
+    public void ShowInventory()
+    {
+        Console.Clear();
+        Console.WriteLine("INVENTORY");
+        if (Player.Inventory.Count == 0)
+        {
+            Console.WriteLine("You don't own anything in this world!");
+        }
+        else
+        {
+            Console.WriteLine(String.Join("\n", Player.Inventory));
+        }
+        Console.ReadLine();
+    }
 
     private void Move(int dx, int dy)
     {

@@ -2,17 +2,17 @@
 
 class Guard : Npc
 {
-    private bool _bribed;
+    public bool Bribed;
 
     public override string Name => "Guard";
 
     public override string[] Description => [
-        _bribed
+        Bribed
             ? "The guard pretends not to see you."
             : "\"Halt! Nobody goes through the eastern door.\""
     ];
 
-    public override string[] Actions => _bribed
+    public override string[] Actions => Bribed
         ? ["Wink:Wink"]
         : ["Ask about the door:AskAboutDoor",
            "Offer a coin:Bribe"];
@@ -25,7 +25,7 @@ class Guard : Npc
 
     public void Bribe()
     {
-        _bribed = true;
+        Bribed = true;
         Console.WriteLine("The coin vanishes into a pocket. \"Door? What door?\"");
         Console.ReadLine();
         Menu.Close();   // the conversation is over – back to the room
